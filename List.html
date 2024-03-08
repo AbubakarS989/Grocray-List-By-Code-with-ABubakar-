@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery List- Code With Abubakar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Grocery List</h1>
+    <form id="groceryForm">
+      <div class="form-row">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" required>
+      </div>
+      <div class="form-row">
+        <label for="unitPrice">Unit Price:</label>
+        <input type="number" id="unitPrice" step="0.01" required>
+      </div>
+      <div class="form-row">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="1" min="1" required>
+      </div>
+      <button type="submit">Add Item</button>
+    </form>
+    <table id="itemTable">
+      <thead>
+        <tr>
+          <th>Serial</th>
+          <th>Item Name</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="itemList"></tbody>
+    </table>
+    <button onclick="generateReceipt()">Submit</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

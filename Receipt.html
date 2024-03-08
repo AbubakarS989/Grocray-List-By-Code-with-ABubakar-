@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Receipt</h1>
+    <div>
+      <p>Date: <span id="date"></span></p>
+      <p>Day: <span id="day"></span></p>
+      <p>Total Items: <span id="totalItems"></span></p>
+      <p>Total Bill: $<span id="totalBill"></span></p>
+    </div>
+    <table id="itemList">
+      <thead>
+        <tr>
+          <th>Serial</th>
+          <th>Item Name</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button onclick="printReceipt()">Print</button>
+    <p>Thank you for shopping!</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const receiptData = JSON.parse(sessionStorage.getItem('receiptData'));
+      if (receiptData) {
+        document.getElementById('date').textContent = receiptData.date;
+        document.getElementById('day').textContent = receiptData.day;
+        document.getElementById('totalItems').textContent = receiptData.totalItems;
+        document.getElementById('totalBill').textContent = receiptData.totalBill;
+
+        const itemList = receiptData.items;
+        if (itemList && itemList.length > 0) {
+          const tableBody = document.querySelector('#itemList tbody');
+          itemList.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${item.serial}</td>
+              <td>${item.itemName}</td>
+              <td>$${item.unitPrice.toFixed(2)}</td>
+              <td>${item.quantity}</td>
+              <td>$${item.totalPrice.toFixed(2)}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        } else {
+          console.error("No items found in the receipt data.");
+        }
+      } else {
+        console.error("No receipt data found in session storage.");
+      }
+    });
+
+    function printReceipt() {
+      window.print();
+    }
+  </script>
+</body>
+</html>
